@@ -37,22 +37,15 @@ const theme = extendTheme({
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-      <PlayerLayout>
+      {Component.authPage ? (
         <Component {...pageProps} />
-      </PlayerLayout>
+      ) : (
+        <PlayerLayout>
+          <Component {...pageProps} />
+        </PlayerLayout>
+      )}
     </ChakraProvider>
   )
-}
-
-import { PrismaClient } from '@prisma/client'
-
-export async function getServerSideProps(context) {
-  // const prisma = new PrismaClient()
-  console.log('waiting')
-  // await prisma.$queryRaw`SELECT 1`
-  console.log('passed')
-
-  return { props: {} }
 }
 
 export default MyApp

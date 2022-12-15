@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    image: docker-nextjs-dev
+    build: .
+    ports:
+      - 3000:3000
+    env_file: .env
+    volumes:
+      - ./pages:/home/app/pages
+      - ./public:/home/app/public
+      - ./styles:/home/app/styles
+      - ./components:/home/app/components
+      - ./prisma:/home/app/prisma
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
